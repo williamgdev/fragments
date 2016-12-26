@@ -3,7 +3,9 @@ package com.mac.fireflies.wgt.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ public class ListFragment extends Fragment {
     EditText editText;
     Button button;
     ListenerListFragment listener;
+    private String TAG = "ListFragment => ";
 
     public ListFragment() {
         // Required empty public constructor
@@ -37,7 +40,7 @@ public class ListFragment extends Fragment {
                 listener.setText(editText.getText().toString());
             }
         });
-
+        Log.d(TAG, "onCreateView: ");
         return view;
     }
 
@@ -49,12 +52,26 @@ public class ListFragment extends Fragment {
         }catch (NoClassDefFoundError error){
             throw  new NoClassDefFoundError(error.toString());
         }
+        Log.d(TAG, "onAttach: ");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: ");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         listener = null;
+        Log.d(TAG, "onDetach: ");
     }
 
     interface ListenerListFragment{
