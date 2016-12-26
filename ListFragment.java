@@ -1,6 +1,7 @@
 package com.mac.fireflies.wgt.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +31,6 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         editText = (EditText) view.findViewById(R.id.txt_list);
         button = (Button) view.findViewById(R.id.button_list);
-        listener = new MainActivity();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +40,23 @@ public class ListFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            listener = (ListenerListFragment) context;
+        }catch (NoClassDefFoundError error){
+            throw  new NoClassDefFoundError(error.toString());
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
     interface ListenerListFragment{
         void setText(String text);
     }
